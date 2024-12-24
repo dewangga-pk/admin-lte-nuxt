@@ -14,6 +14,7 @@ export default defineNuxtConfig({
           {rel:'stylesheet', href:'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css'},
           {rel:'stylesheet', href:'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'},
           {rel:'stylesheet', href:'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'},
+          {rel:'stylesheet', href:'https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css'},
           {rel:'stylesheet', href:'https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css'},
       ],
       script: [

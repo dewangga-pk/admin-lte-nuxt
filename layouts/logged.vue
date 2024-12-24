@@ -5,12 +5,13 @@
     <div class="content-wrapper">
       <slot />
     </div>
+    <AppFooter />
   </div>
 </template>
 <script setup lang="ts">
 useHead({
   bodyAttrs:{
-    class: 'hold-transition sidebar-mini layout-fixed'
+    class: 'sidebar-mini layout-fixed'
   }
 })
 </script>

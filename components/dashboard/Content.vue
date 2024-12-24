@@ -167,6 +167,16 @@
               </div>
             </div>
           </section>
+
+          <section class="col-lg-5">
+            <ClientOnly>
+              <div class="card">
+                <div class="card-body p-0">
+                  <DatePicker inline class="w-100" />
+                </div>
+              </div>
+            </ClientOnly>
+          </section>
         </div>
       </div>
     </section>
@@ -385,5 +395,8 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
+<style>
+.p-datepicker-day-view{
+  text-align: center;
+}
 </style>

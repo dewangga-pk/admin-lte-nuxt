@@ -1,0 +1,6 @@
+services:
+  admin-lte-nuxt:
+    build:
+      context: .
+    ports:
+      - "3000:3000"

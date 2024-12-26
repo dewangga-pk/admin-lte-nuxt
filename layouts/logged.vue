@@ -11,7 +11,7 @@
 <script setup lang="ts">
 useHead({
   bodyAttrs:{
-    class: 'sidebar-mini layout-fixed'
+    class: 'sidebar-mini layout-fixed layout-navbar-fixed'
   }
 })
 </script>

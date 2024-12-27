@@ -51,6 +51,54 @@
               </div>
             </ClientOnly>
 
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="ion ion-clipboard mr-1" />
+                  To Do List
+                </h3>
+
+                <div class="card-tools">
+                  <Paginator
+                    :totalRecords="3"
+                    :rows="1"
+                    template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+                  ></Paginator>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <ul class="todo-list" data-widget="todo-list">
+                  <li v-for="todo in todos" :key="todo.id">
+                    <!-- checkbox -->
+                    <div  class="icheck-primary d-inline ml-2">
+                      <input type="checkbox" value="" :name="`todo${todo.id}`" :id="`todoCheck${todo.id}`" :checked="todo.isDone">
+                      <label :for="`todoCheck${todo.id}`"></label>
+                    </div>
+                    <!-- todo text -->
+                    <span class="text">{{ todo.content }}</span>
+                    <!-- Emphasis label -->
+                    <small class="badge badge-danger"><i class="far fa-clock" /> {{ todo.timeLeft }}</small>
+                    <!-- General tools such as edit or delete-->
+                    <div class="tools">
+                      <i class="fas fa-edit" />
+                      <i class="fas fa-trash" />
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="col-lg-5">
+            <ClientOnly>
+              <div class="card">
+                <div class="card-body p-0">
+                  <DatePicker inline class="w-100" />
+                </div>
+              </div>
+            </ClientOnly>
+
             <div class="card direct-chat direct-chat-primary">
               <div class="card-header">
                 <h3 class="card-title">Direct Chat</h3>
@@ -128,54 +176,6 @@
                 </div>
               </div>
             </div>
-
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="ion ion-clipboard mr-1" />
-                  To Do List
-                </h3>
-
-                <div class="card-tools">
-                  <Paginator
-                    :totalRecords="3"
-                    :rows="1"
-                    template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-                  ></Paginator>
-                </div>
-              </div>
-
-              <div class="card-body">
-                <ul class="todo-list" data-widget="todo-list">
-                  <li v-for="todo in todos" :key="todo.id">
-                    <!-- checkbox -->
-                    <div  class="icheck-primary d-inline ml-2">
-                      <input type="checkbox" value="" name="todo1" id="todoCheck1" :checked="todo.isDone">
-                      <label for="todoCheck1"></label>
-                    </div>
-                    <!-- todo text -->
-                    <span class="text">{{ todo.content }}</span>
-                    <!-- Emphasis label -->
-                    <small class="badge badge-danger"><i class="far fa-clock" /> {{ todo.timeLeft }}</small>
-                    <!-- General tools such as edit or delete-->
-                    <div class="tools">
-                      <i class="fas fa-edit" />
-                      <i class="fas fa-trash" />
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          <section class="col-lg-5">
-            <ClientOnly>
-              <div class="card">
-                <div class="card-body p-0">
-                  <DatePicker inline class="w-100" />
-                </div>
-              </div>
-            </ClientOnly>
           </section>
         </div>
       </div>

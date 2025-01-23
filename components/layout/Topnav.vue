@@ -1,34 +1,32 @@
 <template>
   <div>
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <nav class="relative flex items-center p-2 flex-row flex-nowrap content-start border-b border-gray-600/15 z-[1034] bg-white ml-64 transition-margin-width duration-300 ease-in-out">
       <!-- Left navbar links -->
-      <ul class="navbar-nav">
-        <ClientOnly>
-          <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button">
-              <i class="fas fa-bars" />
-            </a>
-          </li>
-        </ClientOnly>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Home</a>
+      <ul class="flex pl-0 mb-0 list-none flex-row text-opacity-50 text-black">
+        <li class="list-item m-0">
+          <a class="px-4 py-2 h-10 relative">
+            <i class="fas fa-bars" />
+          </a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Contact</a>
+        <li class="m-0 hidden sm:inline-block">
+          <a href="#" class="px-4 py-2 h-10 relative">Home</a>
+        </li>
+        <li class="m-0 hidden sm:inline-block">
+          <a href="#" class="px-4 py-2 h-10 relative">Contact</a>
         </li>
       </ul>
 
       <!-- Right navbar links -->
-      <ul class="navbar-nav ml-auto">
+      <ul class="flex pl-0 mb-0 list-none ml-auto flex-row text-opacity-50 text-black">
         <!-- Navbar Search -->
-        <li class="nav-item">
-          <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+        <li class="m-0 list-item">
+          <a class="px-4 py-2 h-10 relative block cursor-pointer hover:text-black">
             <i class="fas fa-search"/>
           </a>
-          <div class="navbar-search-block">
-            <form class="form-inline">
-              <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+          <div class="flex content-center flex-col absolute px-4 left-0 right-0 top-0 bottom-0 z-10 bg-white">
+            <form class="flex flex-row flex-wrap items-center mt-0">
+              <div class="w-full relative flex flex-wrap items-stretch">
+                <input class="py-1 px-2 rounded leading-3 relative flex-auto mb-0 min-w-0 w-[1%] inline-block align-middle border-r-0 border border-gray-600/15 outline-none bg-grayDark-50" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
                   <button class="btn btn-navbar" type="submit">
                     <i class="fas fa-search" />
@@ -43,12 +41,12 @@
         </li>
 
         <!-- Messages Dropdown Menu -->
-        <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
+        <li class="m-0 list-item">
+          <a class="px-4 py-2 h-10 relative block cursor-pointer hover:text-black">
             <i class="far fa-comments" />
             <span class="badge badge-danger navbar-badge">3</span>
           </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <div class="hidden dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <template v-for="message in messages">
               <a href="#" class="dropdown-item">
                 <!-- Message Start -->
@@ -79,12 +77,12 @@
         </li>
 
         <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
+        <li class="m-0 list-item">
+          <a class="px-4 py-2 h-10 relative block cursor-pointer hover:text-black">
             <i class="far fa-bell" />
             <span class="badge badge-warning navbar-badge">15</span>
           </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <div class="hidden dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <span class="dropdown-item dropdown-header">15 Notifications</span>
             <div class="dropdown-divider"></div>
             <template v-for="notif in notifications">
@@ -101,8 +99,8 @@
             <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
           </div>  
         </li>
-        <li class="nav-item">
-          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+        <li class="m-0 list-item">
+          <a class="px-4 py-2 h-10 relative block cursor-pointer hover:text-black">
             <i class="fas fa-expand-arrows-alt"></i>
           </a>
         </li>
@@ -154,6 +152,8 @@ const notifications = ref<Notification[]>([
   { notif_type: 'friend request', total: 8, time_stamp: '12 hours'},
   { notif_type: 'report', total: 3, time_stamp: '2 days'}
 ])
+
+const isSearch = ref<boolean>(false)
 </script>
 
 <style scoped>

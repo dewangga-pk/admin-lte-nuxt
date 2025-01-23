@@ -2,13 +2,13 @@
 <template>
   <div>
     <DashboardHeader />
-    <DashboardContent />
+    <!-- <DashboardContent /> -->
   </div>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
-  layout: 'logged',
+  layout: 'dashboard',
 });
 </script>
 

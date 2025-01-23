@@ -12,7 +12,8 @@ export default defineNuxtConfig({
     },
   },
   modules: [
-    '@primevue/nuxt-module'
+    '@primevue/nuxt-module',
+    '@sidebase/nuxt-auth'
   ],
   primevue: primevueConfig,
   app: {
@@ -26,4 +27,26 @@ export default defineNuxtConfig({
       ],
     },
   },
+  auth: {
+    baseURL: 'https://dummyjson.com/',
+    globalAppMiddleware: true,
+    provider: {
+      type: 'local',
+      endpoints:{
+        signIn: { path: 'auth/login', method: 'post'},
+        getSession: { path: 'auth/me', method: 'get'},
+        signOut: false,
+      },
+      token: {
+        signInResponseTokenPointer: '/accessToken',
+        type: 'Bearer',
+        cookieName: 'auth.token',
+        headerName: 'Authorization',
+        maxAgeInSeconds: 1800,
+      },
+      pages: {
+        login: '/login'
+      }
+    },
+  }
 })

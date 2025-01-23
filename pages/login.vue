@@ -22,6 +22,9 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'auth',
+  auth: {
+    navigateAuthenticatedTo: '/'
+  }
 });
 </script>
 

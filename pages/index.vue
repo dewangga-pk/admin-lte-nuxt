@@ -3,6 +3,12 @@
   <div>
     <DashboardHeader />
     <!-- <DashboardContent /> -->
+    <div class="ml-64">
+      <Button 
+        label="Log Out"
+        @click="() => signOut({ callbackUrl: '/login' })"
+      />
+    </div>
   </div>
 </template>
 
@@ -10,6 +16,8 @@
 definePageMeta({
   layout: 'dashboard',
 });
+
+const { signOut } = useAuth()
 </script>
 
 <style scoped>

@@ -3,7 +3,6 @@
     <InputGroup>
       <InputText
         placeholder="Email"
-        type="email"
         v-model="email"
         class="hover:!border-blue-500 focus:!shadow-none focus:!border-blue-500"
       />
@@ -63,13 +62,22 @@ const email = ref<string>('')
 const password = ref<string>('')
 const remember = ref<boolean>(false)
 // Method
-const onSubmit = ():void => {
+const { signIn } = useAuth()
+
+const onSubmit = async ():Promise<void> => {
   console.log({
     email: email.value,
     password: password.value,
     remember: remember.value
   })
+  const credentials = {
+    username: email.value,
+    password: password.value
+  }
+
+  await signIn(credentials, {callbackUrl: '/'})
 }
+
 </script>
 
 <style scoped>

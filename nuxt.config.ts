@@ -13,7 +13,8 @@ export default defineNuxtConfig({
   },
   modules: [
     '@primevue/nuxt-module',
-    '@sidebase/nuxt-auth'
+    '@sidebase/nuxt-auth',
+    '@pinia/nuxt'
   ],
   primevue: primevueConfig,
   app: {

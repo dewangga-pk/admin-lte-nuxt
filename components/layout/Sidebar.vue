@@ -1,249 +1,232 @@
 <template>
-  <div>
-    <aside class="fixed top-0 bottom-0 left-0 float-none shadow-2xl bg-grayDark h-screen overflow-y-hidden z-[1038] w-64 transition-margin-width duration-300 ease-in-out text-white/70 flex flex-col">
-      <!-- Brand Logo -->
-      <a href="#" class="text-white/80 hover:text-white w-full block border-b border-gray-600 text-xl whitespace-nowrap px-2 py-3">
-        <img
-          src="https://adminlte.io/themes/v3/dist/img/AdminLTELogo.png"
-          alt="AdminLTE Logo"
-          class="opacity-80 float-left ml-3 mr-2 leading-3 -mt-0.5 max-h-8 w-auto shadow-lg rounded-full align-middle"
-          style="opacity: .8"
-        >
-        <span class="font-light">AdminLTE 3</span>
-      </a>
+  <div
+    class="fixed left-0 top-0 h-screen bg-gray-800 text-white z-50 flex flex-col"
+    :class="['transition-all duration-300',
+      {
+        // Desktop view (>= 1024px)
+        'lg:w-[4.5rem]': props.collapsed && !props.mobileHidden,
+        'lg:w-64': !props.collapsed && !props.mobileHidden,
+        // Tablet/Mobile view (< 1024px)
+        'w-64 transform': true,
+        '-translate-x-full': props.mobileHidden,
+        'translate-x-0': !props.mobileHidden
+      }
+  ]">
+    <div class="p-4 border-b border-gray-700 flex items-center gap-3">
+      <i class="fab fa-windows text-2xl" />
+      <span class="text-xl font-bold text-white flex items-center gap-2" :class="[props.collapsed && 'hidden']">AdminLTE 3</span>
+    </div>
 
-      <!-- Sidebar -->
-      <div class="py-0 px-2 overflow-y-scroll" style="scrollbar-color: #a9a9a9 transparent;">
-        <!-- Sidebar user (optional) -->
-        <div class="border-b border-gray-600 overflow-hidden whitespace-nowrap relative pb-4 my-4 flex">
-          <div class="inline-block pl-3">
-            <img
-              src="https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg" 
-              class="rounded-full align-middle h-auto w-8 shadow-md" 
-              alt="User Image"
-            >
-          </div>
-          <div class="inline-block py-1 pr-1 pl-2 overflow-hidden whitespace-nowrap">
-            <a href="#" class="block hover:text-white">Alexander Pierce</a>
-          </div>
-        </div>
+    <div class="p-4 border-b border-gray-700 flex items-center gap-3">
+      <img 
+        src="https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg" 
+        class="w-8 h-8 rounded-full" 
+        alt="User Image">
+      <span :class="[props.collapsed && 'hidden']">Alexander Pierce</span>
+    </div>
 
-        <!-- SidebarSearch Form -->
-        <div class="flex flex-row items-center">
-          <div class="w-full flex-nowrap relative flex items-stretch">
-            <input 
-              class="rounded-r-none bg-grayDark-400/15 border border-gray-600 text-white relative flex-auto w-[1%] min-w-0 mb-0 h-[calc(2.25rem + 2px)] py-1 px-3 font-normal leading-6 rounded-l shadow-inner focus:outline-none"
-              type="search"
-              placeholder="Search" 
-              aria-label="Search"
+    <div class="p-4 border-b border-gray-700" :class="[props.collapsed && 'hidden']">
+      <input 
+        type="text" 
+        class="w-full bg-gray-700 text-white px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" 
+        placeholder="Search">
+    </div>
+    
+    <div class="flex-1 overflow-y-auto custom-scrollbar">
+      <nav class="mt-2">
+        <template v-for="item in menuItems" :key="item.id">
+          <!-- Section Header -->
+          <div v-if="item.type === 'header'" class="px-4 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider" :class="[props.collapsed && 'hidden']">
+            {{ item.label }}
+          </div>
+          
+          <!-- Menu Item -->
+          <template v-else>
+            <NuxtLink
+              class="flex items-center gap-2 px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors cursor-pointer" 
+              :to="item.route"
+              :class="{ '!bg-blue-500 !text-white': isActive(item.id) }"
+              @click="item.route ? false : toggleMenu(item.id)"
             >
-            <div class="-ml-[1px] flex">
-              <button class="rounded-l-none rounded-r cursor-pointer bg-grayDark-400/15 border border-gray-600 text-white inline-block text-center align-middle text-base py-1 px-3">
-                <i class="fas fa-search fa-fw" />
-              </button>
+              <i :class="['text-lg w-6', item.icon]" />
+              <span :class="[props.collapsed && 'hidden']">{{ item.label }}</span>
+              
+              <!-- Badge if exists -->
+              <span v-if="item.badge && !props.collapsed" 
+                    :class="['ml-auto px-2 py-0.5 text-xs rounded-full', `badge-${item.badge.type}`]">
+                {{ item.badge.text }}
+              </span>
+              
+              <!-- Arrow icon for items with submenu -->
+              <i v-if="item.children && !props.collapsed" 
+                 class="fas fa-angle-right ml-auto transition-transform duration-200"
+                 :class="{ 'rotate-90': expandedMenus.includes(item.id) }"/>
+            </NuxtLink>
+
+            <!-- Submenu -->
+            <div 
+              v-if="item.children && expandedMenus.includes(item.id)" 
+              class="overflow-hidden transition-all duration-200"
+            >
+              <div class="bg-gray-900">
+                <div 
+                  v-for="child in item.children" 
+                  :key="child.id" 
+                  class="flex items-center gap-2 px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors cursor-pointer"
+                >
+                  <i :class="['text-lg w-6', child.icon]"/>
+                  <span :class="[props.collapsed && 'hidden']">{{ child.label }}</span>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-
-        <!-- Sidebar Menu -->
-        <PanelMenu :model="menus" multiple class="mt-2" unstyled>
-         <template #item="{ item }">
-            <a
-              v-ripple
-              class="relative mb-0.5 rounded block py-2 px-4 hover:cursor-pointer"
-              :class="getMenuClass(item)"
-            >
-              <i :class="[item.icon, 'text-[1.1rem] ml-[0.05rem] mr-1.5 text-center w-6']" />
-              <span class="inline m-0 whitespace-normal"  >{{ item.label }}</span>
-              <i v-if="item.items" class="absolute right-4 top-[0.7rem] fas fa-angle-left" />
-            </a>
           </template>
-        </PanelMenu>
-        <!-- /.sidebar-menu -->
-      </div>
-      <!-- /.sidebar -->
-    </aside>
+        </template>
+      </nav>
+    </div>
   </div>
 </template>
 
-<script setup lang="ts">
-type Menu = {
-  icon: string,
-  label: string,
-  route_path?: string,
-  route_name?: string,
-  items?: Array<{
-    icon: string,
-    label: string,
-    submenu_route_path?: string,
-    submenu_route_name?: string,
-  }>
-};
+<script lang="ts" setup>
+// Props
+interface Props {
+  collapsed?: boolean;
+  mobileHidden?: boolean;
+}
+const props = withDefaults(defineProps<Props>(), {
+  collapsed: false,
+  mobileHidden: false
+});
+// Emits
+const emit = defineEmits(['toggle-sidebar']);
 
-const menus = ref<Menu[]>([
+// Types
+interface Badge {
+  text: string;
+  type: 'new' | 'info' | 'warning' | 'danger';
+}
+
+interface MenuItem {
+  id: string;
+  type?: 'header' | 'item';
+  label: string;
+  icon?: string;
+  badge?: Badge;
+  route?: string;
+  children?: MenuItem[];
+}
+
+// State
+const expandedMenus = ref<string[]>(['dashboard']);
+const activeItem = ref<string>('dashboard');
+const menuItems = ref<MenuItem[]>([
   {
-    icon: 'fas fa-tachometer-alt',
+    id: 'dashboard',
+    type: 'item',
     label: 'Dashboard',
-    route_path: '/',
-    route_name: 'index',
-    items: [
-      { icon: 'far fa-circle nav-icon', label: 'Dashboard v1', submenu_route_name: 'index', submenu_route_path: '/'},
-      { icon: 'far fa-circle nav-icon', label: 'Dashboard v2'},
-      { icon: 'far fa-circle nav-icon', label: 'Dashboard v3'},
+    icon: 'fas fa-tachometer-alt',
+    children: [
+      { id: 'dashboard-v1', label: 'Dashboard v1', icon: 'fas fa-circle' },
+      { id: 'dashboard-v2', label: 'Dashboard v2', icon: 'fas fa-circle' },
+      { id: 'dashboard-v3', label: 'Dashboard v3', icon: 'fas fa-circle' },
     ]
   },
   {
-    icon: 'fas fa-th',
-    label: 'Widgets'
+    id: 'widgets',
+    type: 'item',
+    label: 'Widgets',
+    icon: 'fas fa-th-large',
+    badge: { text: 'New', type: 'new' },
+    route: '/ui/widgets'
   },
   {
-    icon: 'fas fa-copy',
+    id: 'layout',
+    type: 'item',
     label: 'Layout Options',
-    items: [
-      { icon: 'far fa-circle nav-icon', label: 'Top Navigation'},
-      { icon: 'far fa-circle nav-icon', label: 'Top Navigation + Sidebar'},
-      { icon: 'far fa-circle nav-icon', label: 'Boxed'},
-      { icon: 'far fa-circle nav-icon', label: 'Fixed Sidebar'},
-      { icon: 'far fa-circle nav-icon', label: 'Fixed Sidebar + Custom Area'},
-      { icon: 'far fa-circle nav-icon', label: 'Fixed Navbar'},
-      { icon: 'far fa-circle nav-icon', label: 'Fixed Footer'},
-      { icon: 'far fa-circle nav-icon', label: 'Collapsed Sidebar'},
-    ]
+    icon: 'fas fa-copy',
+    badge: { text: '6', type: 'info' }
   },
   {
-    icon: 'fas fa-chart-pie',
+    id: 'charts',
+    type: 'item',
     label: 'Charts',
-    items: [
-      { icon: 'far fa-circle nav-icon', label: 'ChartJS'},
-      { icon: 'far fa-circle nav-icon', label: 'Flot'},
-      { icon: 'far fa-circle nav-icon', label: 'Inline'},
-      { icon: 'far fa-circle nav-icon', label: 'uPlot'},
-    ]
+    icon: 'fas fa-chart-pie',
+    children: [] // Add your chart submenu items here
   },
   {
-    icon: 'fas fa-tree',
+    id: 'ui',
+    type: 'item',
     label: 'UI Elements',
-    items: [
-      { icon: 'far fa-circle nav-icon', label: 'General'},
-      { icon: 'far fa-circle nav-icon', label: 'Icons'},
-      { icon: 'far fa-circle nav-icon', label: 'Buttons'},
-      { icon: 'far fa-circle nav-icon', label: 'Sliders'},
-      { icon: 'far fa-circle nav-icon', label: 'Modals & Alerts'},
-      { icon: 'far fa-circle nav-icon', label: 'Navbar & Tabs'},
-      { icon: 'far fa-circle nav-icon', label: 'Timeline'},
-      { icon: 'far fa-circle nav-icon', label: 'Ribbons'},
-    ]
+    icon: 'fas fa-laptop',
+    children: [] // Add your UI submenu items here
   },
   {
-    icon: 'fas fa-edit',
+    id: 'forms',
+    type: 'item',
     label: 'Forms',
-    items: [
-      { icon: 'far fa-circle nav-icon', label: 'General Elements'},
-      { icon: 'far fa-circle nav-icon', label: 'Advanced Elements'},
-      { icon: 'far fa-circle nav-icon', label: 'Editors'},
-      { icon: 'far fa-circle nav-icon', label: 'Validation'}
-    ]
+    icon: 'fas fa-edit',
+    children: [] // Add your forms submenu items here
   },
   {
-    icon: 'fas fa-table',
+    id: 'tables',
+    type: 'item',
     label: 'Tables',
-    items: [
-      { icon: 'far fa-circle nav-icon', label: 'Simple Tables'},
-      { icon: 'far fa-circle nav-icon', label: 'DataTables'},
-      { icon: 'far fa-circle nav-icon', label: 'jsGrid'},
-    ]
+    icon: 'fas fa-table',
+    children: [] // Add your tables submenu items here
   },
   {
-    icon: 'far fa-calendar-alt',
-    label: 'Calendar'
+    id: 'examples-header',
+    type: 'header',
+    label: 'EXAMPLES'
   },
   {
-    icon: 'far fa-image',
-    label: 'Gallery'
+    id: 'calendar',
+    type: 'item',
+    label: 'Calendar',
+    icon: 'fas fa-calendar-alt',
+    badge: { text: '2', type: 'info' }
   },
   {
-    icon: 'fas fa-columns',
-    label: 'Kanban Board'
-  },
-  {
-    icon: 'far fa-envelope',
-    label: 'Mailbox',
-    items: [
-      { icon: 'far fa-circle nav-icon', label: 'Inbox'},
-      { icon: 'far fa-circle nav-icon', label: 'Compose'},
-      { icon: 'far fa-circle nav-icon', label: 'Read'},
-    ]
-  },
-  {
-    icon: 'fas fa-book',
-    label: 'Pages',
-    items: [
-      { icon: 'far fa-circle nav-icon', label: 'Invoice'},
-      { icon: 'far fa-circle nav-icon', label: 'Profile'},
-      { icon: 'far fa-circle nav-icon', label: 'E-commerce'},
-      { icon: 'far fa-circle nav-icon', label: 'Projects'},
-      { icon: 'far fa-circle nav-icon', label: 'Project Add'},
-      { icon: 'far fa-circle nav-icon', label: 'Project Edit'},
-      { icon: 'far fa-circle nav-icon', label: 'Project Detail'},
-      { icon: 'far fa-circle nav-icon', label: 'Contact'},
-      { icon: 'far fa-circle nav-icon', label: 'FAQ'},
-      { icon: 'far fa-circle nav-icon', label: 'Contact Us'},
-    ]
-  },
-  {
-    icon: 'far fa-plus-square',
-    label: 'Extras',
-    items: [
-      { icon: 'far fa-circle nav-icon', label: 'Login v1'},
-      { icon: 'far fa-circle nav-icon', label: 'Register v1'},
-      { icon: 'far fa-circle nav-icon', label: 'Forgot Password v1'},
-      { icon: 'far fa-circle nav-icon', label: 'Recover Password v1'},
-      { icon: 'far fa-circle nav-icon', label: 'Login v2'},
-      { icon: 'far fa-circle nav-icon', label: 'Register v2'},
-      { icon: 'far fa-circle nav-icon', label: 'Forgot Password v2'},
-      { icon: 'far fa-circle nav-icon', label: 'Recover Password v2'},
-      { icon: 'far fa-circle nav-icon', label: 'LockScreen'},
-      { icon: 'far fa-circle nav-icon', label: 'Legacy User Menu'},
-      { icon: 'far fa-circle nav-icon', label: 'Languange Menu'},
-      { icon: 'far fa-circle nav-icon', label: 'Error 404'},
-      { icon: 'far fa-circle nav-icon', label: 'Error 500'},
-      { icon: 'far fa-circle nav-icon', label: 'Pace'},
-      { icon: 'far fa-circle nav-icon', label: 'Blank Page'},
-      { icon: 'far fa-circle nav-icon', label: 'Starter Page'},
-    ]
-  },
-  {
-    icon: 'fas fa-search',
-    label: 'Search',
-    items: [
-      { icon: 'far fa-circle nav-icon', label: 'Simple Search'},
-      { icon: 'far fa-circle nav-icon', label: 'Enhanced'},
-    ]
-  },
-  {
-    icon: 'fas fa-ellipsis-h',
-    label: 'Tabbed IFrame Plugin'
-  },
-  {
-    icon: 'fas fa-file',
-    label: 'Documentation'
-  },
+    id: 'gallery',
+    type: 'item',
+    label: 'Gallery',
+    icon: 'fas fa-images'
+  }
 ]);
 
-const route = useRoute()
-const currentRoute = ref(route.name)
+// Methods
+function isActive(id: string): boolean {
+  return activeItem.value === id;
+}
 
-const getMenuClass = (item:any) => {
-  if (item.route_name && item.route_name === currentRoute.value) {
-    return 'text-white bg-blue';
-  } else if (item.submenu_route_name && item.submenu_route_name === currentRoute.value) {
-    return 'bg-white/90 text-grayDark';
+function toggleMenu(id: string): void {
+  const index = expandedMenus.value.indexOf(id);
+  if (index === -1) {
+    expandedMenus.value.push(id);
   } else {
-    return 'hover:text-white hover:bg-gray-600/70';
+    expandedMenus.value.splice(index, 1);
   }
-};
+}
 </script>
-
 <style scoped>
+/* WebKit-based browsers (Chrome, Safari, Edge Chromium) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
 
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #2d3748; /* e.g., Tailwind's gray-800 */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4a5568; /* e.g., Tailwind's gray-600 */
+  border-radius: 9999px;     /* fully rounded corners */
+  border: 2px solid #2d3748; /* match the track background */
+}
+
+/* Firefox (limited customization) */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #4a5568 #2d3748;
+}
 </style>

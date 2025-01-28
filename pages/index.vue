@@ -1,9 +1,9 @@
 
 <template>
   <div>
-    <DashboardHeader />
+    <!-- <DashboardHeader /> -->
     <!-- <DashboardContent /> -->
-    <div class="ml-64">
+    <div>
       <Button 
         label="Log Out"
         @click="() => signOut({ callbackUrl: '/login' })"

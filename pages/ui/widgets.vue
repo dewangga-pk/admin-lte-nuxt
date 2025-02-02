@@ -11,6 +11,8 @@
     </div>
 
     <WidgetsSectionInfoBox />
+    <WidgetsSectionSmallBox />
+    <WidgetsSectionCard />
   </div>
 </template>
 

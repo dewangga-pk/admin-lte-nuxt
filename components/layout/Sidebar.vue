@@ -45,7 +45,7 @@
             <NuxtLink
               class="flex items-center gap-2 px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors cursor-pointer" 
               :to="item.route"
-              :class="{ '!bg-blue-500 !text-white': isActive(item.id) }"
+              active-class="bg-blue-500 text-white"
               @click="item.route ? false : toggleMenu(item.id)"
             >
               <i :class="['text-lg w-6', item.icon]" />
@@ -69,14 +69,16 @@
               class="overflow-hidden transition-all duration-200"
             >
               <div class="bg-gray-900">
-                <div 
+                <NuxtLink 
                   v-for="child in item.children" 
                   :key="child.id" 
                   class="flex items-center gap-2 px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors cursor-pointer"
+                  :to="child.route"
+                  active-class="bg-blue-500 text-white"
                 >
                   <i :class="['text-lg w-6', child.icon]"/>
                   <span :class="[props.collapsed && 'hidden']">{{ child.label }}</span>
-                </div>
+                </NuxtLink>
               </div>
             </div>
           </template>
@@ -124,8 +126,9 @@ const menuItems = ref<MenuItem[]>([
     type: 'item',
     label: 'Dashboard',
     icon: 'fas fa-tachometer-alt',
+    badge: { text: '6', type: 'info'},
     children: [
-      { id: 'dashboard-v1', label: 'Dashboard v1', icon: 'fas fa-circle' },
+      { id: 'dashboard-v1', label: 'Dashboard v1', icon: 'fas fa-circle', route: '/' },
       { id: 'dashboard-v2', label: 'Dashboard v2', icon: 'fas fa-circle' },
       { id: 'dashboard-v3', label: 'Dashboard v3', icon: 'fas fa-circle' },
     ]
@@ -138,59 +141,6 @@ const menuItems = ref<MenuItem[]>([
     badge: { text: 'New', type: 'new' },
     route: '/ui/widgets'
   },
-  {
-    id: 'layout',
-    type: 'item',
-    label: 'Layout Options',
-    icon: 'fas fa-copy',
-    badge: { text: '6', type: 'info' }
-  },
-  {
-    id: 'charts',
-    type: 'item',
-    label: 'Charts',
-    icon: 'fas fa-chart-pie',
-    children: [] // Add your chart submenu items here
-  },
-  {
-    id: 'ui',
-    type: 'item',
-    label: 'UI Elements',
-    icon: 'fas fa-laptop',
-    children: [] // Add your UI submenu items here
-  },
-  {
-    id: 'forms',
-    type: 'item',
-    label: 'Forms',
-    icon: 'fas fa-edit',
-    children: [] // Add your forms submenu items here
-  },
-  {
-    id: 'tables',
-    type: 'item',
-    label: 'Tables',
-    icon: 'fas fa-table',
-    children: [] // Add your tables submenu items here
-  },
-  {
-    id: 'examples-header',
-    type: 'header',
-    label: 'EXAMPLES'
-  },
-  {
-    id: 'calendar',
-    type: 'item',
-    label: 'Calendar',
-    icon: 'fas fa-calendar-alt',
-    badge: { text: '2', type: 'info' }
-  },
-  {
-    id: 'gallery',
-    type: 'item',
-    label: 'Gallery',
-    icon: 'fas fa-images'
-  }
 ]);
 
 // Methods

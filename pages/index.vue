@@ -1,8 +1,6 @@
 
 <template>
   <div>
-    <!-- <DashboardHeader /> -->
-    <!-- <DashboardContent /> -->
     <div>
       <Button 
         label="Log Out"

@@ -53,6 +53,22 @@
         </Tabs>
       </template>
     </Card>
+
+    <h2 class="text-xl font-semibold col-span-full">Progress Bars</h2>
+    <Card class="lg:col-span-2">
+      <template #content>
+        <div class="flex flex-col gap-2">
+          <small>Base</small>
+          <ProgressBar :value="90" pt:value="!bg-blue-500" />
+          <small>.h-4</small>
+          <ProgressBar :value="70" pt:value="!bg-green-500" pt:root="!h-4" />
+          <small>.h-3.5</small>
+          <ProgressBar :value="50" pt:value="!bg-yellow-500" pt:root="!h-3.5" />
+          <small>.h-1</small>
+          <ProgressBar :value="25" pt:value="!bg-red-500" pt:label="!hidden" pt:root="!h-1" />
+        </div>
+      </template>
+    </Card>
   </section>
 </template>
 

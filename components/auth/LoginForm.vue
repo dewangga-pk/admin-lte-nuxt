@@ -23,6 +23,13 @@
       </InputGroupAddon>
     </InputGroup>
 
+    <Message severity="error" v-show="isError" pt:content="!py-1" pt:text="!text-xs">
+      <template #icon>
+        <i class="fas fa-exclamation-circle" />
+      </template>
+      Invalid Email or Password
+    </Message>
+
     <div class="flex justify-between">
       <div class="flex items-center">
         <Checkbox
@@ -36,16 +43,18 @@
       <Button
         label="Sign In"
         type="submit"
-        unstyled
-        pt:root="bg-blue-500 hover:bg-blue-700 active:bg-blue-900 cursor-pointer py-2 px-4 rounded border-0"
-        pt:label="text-white font-bold text-base"
+        pt:root="!bg-blue-500 hover:!bg-blue-700 active:!bg-blue-900 !py-2 !px-4 !rounded !border-0"
+        pt:label="!text-white !font-bold !text-base"
+        :loading="loading"
       />
     </div>
+    <Toast />
   </form>
 </template>
 
 <script setup lang="ts">
 import type { CheckboxDesignTokens } from '@primevue/themes/aura/checkbox';
+const toast = useToast();
 
 // Scopped Token
 const checkBoxBlue = ref<CheckboxDesignTokens>({
@@ -58,6 +67,8 @@ const checkBoxBlue = ref<CheckboxDesignTokens>({
 });
 
 // State
+const loading = ref(false)
+const isError = ref(false)
 const email = ref<string>('')
 const password = ref<string>('')
 const remember = ref<boolean>(false)
@@ -65,6 +76,7 @@ const remember = ref<boolean>(false)
 const { signIn } = useAuth()
 
 const onSubmit = async ():Promise<void> => {
+  loading.value = true
   console.log({
     email: email.value,
     password: password.value,
@@ -75,7 +87,12 @@ const onSubmit = async ():Promise<void> => {
     password: password.value
   }
 
-  await signIn(credentials, {callbackUrl: '/'})
+  await signIn(credentials, {callbackUrl: '/'}).then(() => {
+    isError.value = false
+  }).catch((error) => {
+    isError.value = true
+  })
+  loading.value = false
 }
 
 </script>

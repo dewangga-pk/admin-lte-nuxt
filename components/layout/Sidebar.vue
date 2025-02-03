@@ -119,7 +119,6 @@ interface MenuItem {
 
 // State
 const expandedMenus = ref<string[]>(['dashboard']);
-const activeItem = ref<string>('dashboard');
 const menuItems = ref<MenuItem[]>([
   {
     id: 'dashboard',
@@ -141,13 +140,18 @@ const menuItems = ref<MenuItem[]>([
     badge: { text: 'New', type: 'new' },
     route: '/ui/widgets'
   },
+  {
+    id: 'ui-elements',
+    type: 'item',
+    label: 'UI Elements',
+    icon: 'fas fa-tree',
+    children: [
+      { id: 'general', label: 'General', icon: 'fas fa-circle', route: '/ui/general' }
+    ]
+  }
 ]);
 
 // Methods
-function isActive(id: string): boolean {
-  return activeItem.value === id;
-}
-
 function toggleMenu(id: string): void {
   const index = expandedMenus.value.indexOf(id);
   if (index === -1) {

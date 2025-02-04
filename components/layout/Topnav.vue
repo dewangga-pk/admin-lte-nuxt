@@ -7,14 +7,14 @@
       'lg:left-[4.5rem]': isSidebarCollapsed && !isSmallScreen,
       'lg:left-64': !isSidebarCollapsed && !isSmallScreen,
       // Tablet/Mobile view (< 1024px)
-      'left-0': isSmallScreen && isSidebarCollapsed
+      'left-0': isSmallScreen
     }
   ]">
     <div class="flex items-center gap-4">
       <button class="p-2 rounded-lg hover:bg-gray-100 text-gray-600" @click="handleToggleSidebar">
         <i class="fas fa-bars"/>
       </button>
-      <div class="flex items-center text-sm">
+      <div class="md:flex items-center text-sm hidden">
         <span>Home</span>
         <i class="fas fa-angle-right text-xs mx-2"/>
         <span class="text-gray-500">Dashboard</span>
@@ -44,13 +44,6 @@
         <button class="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg">
           <i class="fas fa-flag"/>
           <span class="absolute top-0 right-0 -mt-1 -mr-1 px-1.5 py-0.5 text-xs bg-red-500 text-white rounded-full">9</span>
-        </button>
-        <div class="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer">
-          <img src="https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg" class="w-8 h-8 rounded-full" alt="User Image">
-          <span class="hidden md:inline-block">Alexander Pierce</span>
-        </div>
-        <button class="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg">
-          <i class="fas fa-cog"/>
         </button>
       </div>
     </div>

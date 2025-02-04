@@ -146,7 +146,8 @@ const menuItems = ref<MenuItem[]>([
     label: 'UI Elements',
     icon: 'fas fa-tree',
     children: [
-      { id: 'general', label: 'General', icon: 'fas fa-circle', route: '/ui/general' }
+      { id: 'general', label: 'General', icon: 'fas fa-circle', route: '/ui/general' },
+      { id: 'modal', label: 'Modal', icon:'fas fa-circle', route: '/ui/modal' }
     ]
   }
 ]);

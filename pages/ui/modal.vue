@@ -6,13 +6,11 @@
       <div class="inline-flex items-center gap-2 text-sm text-gray-500">
         <NuxtLink to="/" class="text-blue-400">Home</NuxtLink>
         <span>/Ui/</span>
-        <span>General</span>
+        <span>Modal</span>
       </div>
     </div>
 
-    <TemplateSectionMessage />
-    <TemplateSectionTab />
-    <TemplateSectionAccordion />
+    <TemplateSectionModal />
   </div>
 </template>
 

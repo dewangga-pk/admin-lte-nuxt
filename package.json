@@ -10,14 +10,21 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.9.0",
     "@primevue/themes": "^4.2.5",
     "chart.js": "^4.4.7",
     "nuxt": "^3.14.1592",
+    "pinia": "^2.3.1",
     "primevue": "^4.2.5",
+    "tailwindcss-primeui": "^0.3.4",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
-    "@primevue/nuxt-module": "^4.2.5"
+    "@primevue/nuxt-module": "^4.2.5",
+    "@sidebase/nuxt-auth": "^0.8.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17"
   }
 }

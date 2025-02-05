@@ -118,7 +118,7 @@ interface MenuItem {
 }
 
 // State
-const expandedMenus = ref<string[]>(['dashboard']);
+const expandedMenus = ref<string[]>(['']);
 const menuItems = ref<MenuItem[]>([
   {
     id: 'dashboard',
@@ -147,7 +147,8 @@ const menuItems = ref<MenuItem[]>([
     icon: 'fas fa-tree',
     children: [
       { id: 'general', label: 'General', icon: 'fas fa-circle', route: '/ui/general' },
-      { id: 'modal', label: 'Modal', icon:'fas fa-circle', route: '/ui/modal' }
+      { id: 'modal', label: 'Modal', icon:'fas fa-circle', route: '/ui/modal' },
+      { id: 'chartjs', label: 'ChartJs', icon: 'fas fa-circle', route: '/ui/chartjs'}
     ]
   }
 ]);

@@ -148,7 +148,9 @@ const menuItems = ref<MenuItem[]>([
     children: [
       { id: 'general', label: 'General', icon: 'fas fa-circle', route: '/ui/general' },
       { id: 'modal', label: 'Modal', icon:'fas fa-circle', route: '/ui/modal' },
-      { id: 'chartjs', label: 'ChartJs', icon: 'fas fa-circle', route: '/ui/chartjs'}
+      { id: 'chartjs', label: 'ChartJs', icon: 'fas fa-circle', route: '/ui/chartjs'},
+      { id: 'tables', label: 'Tables', icon: 'fas fa-circle', route: '/ui/tables'}
+
     ]
   }
 ]);

@@ -126,11 +126,7 @@ const menuItems = ref<MenuItem[]>([
     label: 'Dashboard',
     icon: 'fas fa-tachometer-alt',
     badge: { text: '6', type: 'info'},
-    children: [
-      { id: 'dashboard-v1', label: 'Dashboard v1', icon: 'fas fa-circle', route: '/' },
-      { id: 'dashboard-v2', label: 'Dashboard v2', icon: 'fas fa-circle' },
-      { id: 'dashboard-v3', label: 'Dashboard v3', icon: 'fas fa-circle' },
-    ]
+    route:'/'
   },
   {
     id: 'widgets',

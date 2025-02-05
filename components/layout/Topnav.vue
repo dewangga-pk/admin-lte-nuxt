@@ -45,12 +45,21 @@
           <i class="fas fa-flag"/>
           <span class="absolute top-0 right-0 -mt-1 -mr-1 px-1.5 py-0.5 text-xs bg-red-500 text-white rounded-full">9</span>
         </button>
+        <Button 
+          label="Log Out"
+          @click="() => signOut({ callbackUrl: '/login' })"
+          severity="danger"
+          icon="fas fa-sign-out-alt"
+        />
       </div>
     </div>
   </header>
 </template>
 
 <script lang="ts" setup>
+// Import
+const { signOut } = useAuth()
+
 // Emits
 const emit = defineEmits(['toggle-sidebar']);
 
